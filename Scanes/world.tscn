@@ -1,0 +1,177 @@
+[gd_scene load_steps=21 format=3 uid="uid://dwg4wiuamm3oo"]
+
+[ext_resource type="PackedScene" uid="uid://bh2mv4aqnc7ar" path="res://PlayerCharacter/player.tscn" id="1_pkwu1"]
+[ext_resource type="AudioStream" uid="uid://cqixon1qxxpp5" path="res://Sounds/intro.wav" id="3_4f7g1"]
+[ext_resource type="FontFile" uid="uid://c3corn8elfcqi" path="res://Textures/m5x7.ttf" id="4_68tj2"]
+[ext_resource type="Script" path="res://Scanes/EscapeLogo.gd" id="4_on665"]
+[ext_resource type="AudioStream" uid="uid://dk5js35wl8yoy" path="res://Sounds/lightswitch_on.mp3" id="6_kp0dh"]
+[ext_resource type="PackedScene" uid="uid://blklo1yrlod61" path="res://Models/chair.glb" id="7_n6db8"]
+[ext_resource type="AudioStream" uid="uid://dkrs5lwfn1vkn" path="res://Sounds/lightswitch_off.mp3" id="7_vw5sn"]
+[ext_resource type="PackedScene" uid="uid://dybfkctry0h1i" path="res://Scanes/rusty_bucket.tscn" id="8_8vaee"]
+[ext_resource type="PackedScene" uid="uid://cht042k7oxl4t" path="res://Scanes/fill_blood.tscn" id="9_a4031"]
+[ext_resource type="PackedScene" uid="uid://rqhy6rb2ah7s" path="res://Scanes/theplant.tscn" id="10_l707p"]
+[ext_resource type="PackedScene" uid="uid://qad7dl8y162p" path="res://Interact/place_item.tscn" id="11_cod4j"]
+[ext_resource type="Script" path="res://Interact/placeholder.gd" id="12_7npdt"]
+[ext_resource type="PackedScene" uid="uid://rd11b4kqsd36" path="res://Scanes/meatdisplay.tscn" id="13_8lb0u"]
+[ext_resource type="PackedScene" uid="uid://c6d46u3l2i42o" path="res://Scanes/bloodvat.tscn" id="14_7mfiu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3neyu"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_js36e"]
+sky_material = SubResource("ProceduralSkyMaterial_3neyu")
+
+[sub_resource type="Environment" id="Environment_7ooni"]
+background_mode = 2
+sky = SubResource("Sky_js36e")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j2kge"]
+size = Vector3(1, 0.6, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_os0id"]
+size = Vector3(1, 1, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hh1id"]
+
+[node name="WORLD" type="Node3D"]
+
+[node name="main_character" parent="." instance=ExtResource("1_pkwu1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="RustyBucket" parent="." instance=ExtResource("8_8vaee")]
+collision_mask = 7
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_color = Color(0.876653, 0.860499, 0.860795, 1)
+shadow_enabled = true
+shadow_bias = 0.565
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7ooni")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.52914, 0)
+layers = 2
+calculate_tangents = false
+use_collision = true
+collision_layer = 2
+size = Vector3(50, 0.025, 50)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+layers = 2
+calculate_tangents = false
+use_collision = true
+collision_layer = 2
+size = Vector3(24, 0.025, 24)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4f7g1")
+autoplay = true
+
+[node name="EscapeLogo" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("4_on665")
+
+[node name="Label" type="Label" parent="EscapeLogo"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -15.0
+offset_right = 34.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.718361, 0.152293, 0.164976, 1)
+theme_override_fonts/font = ExtResource("4_68tj2")
+theme_override_font_sizes/font_size = 30
+text = "ESCAPE
+"
+
+[node name="TextTimer" type="Timer" parent="EscapeLogo"]
+wait_time = 4.0
+one_shot = true
+
+[node name="lightswitchOn" type="AudioStreamPlayer" parent="EscapeLogo"]
+stream = ExtResource("6_kp0dh")
+
+[node name="lightswitchOff" type="AudioStreamPlayer" parent="EscapeLogo"]
+stream = ExtResource("7_vw5sn")
+
+[node name="chair" type="StaticBody3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.2, 5)
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chair"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("BoxShape3D_j2kge")
+
+[node name="chair" parent="chair" instance=ExtResource("7_n6db8")]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="chair"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -0.4)
+shape = SubResource("BoxShape3D_os0id")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(-2.28173e-07, 0, -1, 0, 1, 0, 5.22, 0, -4.37114e-08, 5.4, 0.5, -1.3)
+use_collision = true
+collision_layer = 2
+mesh = SubResource("BoxMesh_hh1id")
+
+[node name="FillBlood" parent="." instance=ExtResource("9_a4031")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.3, 1, 0)
+
+[node name="theplant" parent="." instance=ExtResource("10_l707p")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 5.3, 1, -2)
+visible = false
+
+[node name="PlaceItem" parent="." instance=ExtResource("11_cod4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 1, -3.2)
+script = ExtResource("12_7npdt")
+prompt_message = "Place Down [E]"
+
+[node name="meatdisplay" parent="." instance=ExtResource("13_8lb0u")]
+transform = Transform3D(-3.27835e-08, 0, -0.75, 0, 0.75, 0, 0.75, 0, -3.27835e-08, -4, 0, 3.2)
+collision_layer = 4
+collision_mask = 3
+
+[node name="meatdisplay2" parent="." instance=ExtResource("13_8lb0u")]
+transform = Transform3D(-3.27835e-08, 0, -0.75, 0, 0.75, 0, 0.75, 0, -3.27835e-08, -4, 0, -1.6)
+collision_layer = 4
+collision_mask = 3
+
+[node name="meatdisplay3" parent="." instance=ExtResource("13_8lb0u")]
+transform = Transform3D(-3.27835e-08, 0, -0.75, 0, 0.75, 0, 0.75, 0, -3.27835e-08, -4, 0, -6.3)
+collision_layer = 4
+collision_mask = 3
+
+[node name="bloodvat" parent="." instance=ExtResource("14_7mfiu")]
+transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 1.75, 0, -1.8, -15)
+collision_layer = 4
+collision_mask = 3
+
+[connection signal="timeout" from="EscapeLogo/TextTimer" to="EscapeLogo" method="_on_text_timer_timeout"]
+[connection signal="bucket_filled" from="FillBlood" to="main_character" method="_on_fill_blood_bucket_filled"]

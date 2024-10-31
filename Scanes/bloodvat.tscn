@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6d46u3l2i42o"]
+
+[ext_resource type="PackedScene" uid="uid://cbgxncupn26no" path="res://Models/bloodvat.glb" id="1_rxxj1"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_erpde"]
+height = 1.4
+radius = 2.0
+
+[node name="bloodvat" type="StaticBody3D"]
+
+[node name="bloodvat" parent="." instance=ExtResource("1_rxxj1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("CylinderShape3D_erpde")

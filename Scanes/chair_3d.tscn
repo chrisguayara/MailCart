@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c525uwc884des"]
+
+[ext_resource type="PackedScene" uid="uid://cbgf4lmx4erp8" path="res://Scanes/chair.tscn" id="1_k33ip"]
+
+[node name="chair3d" instance=ExtResource("1_k33ip")]
+
+[node name="Area3D" parent="." index="1"]
+collision_layer = 1
+collision_mask = 1

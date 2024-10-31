@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dybfkctry0h1i"]
+
+[ext_resource type="PackedScene" uid="uid://b24xudpyke55w" path="res://Models/rustybucket.glb" id="1_v4mr4"]
+[ext_resource type="Script" path="res://Interact/interactableObject.gd" id="2_wycpu"]
+[ext_resource type="PackedScene" uid="uid://1jngp8axdh1s" path="res://Models/rustybucket_filled.glb" id="3_jrrfg"]
+[ext_resource type="AudioStream" uid="uid://cx1hw63bnp7rm" path="res://Sounds/blood_filled.mp3" id="4_irnn5"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nlr8m"]
+height = 2.02679
+radius = 1.0
+
+[node name="RustyBucket" type="RigidBody3D"]
+collision_layer = 8
+collision_mask = 3
+mass = 4.0
+script = ExtResource("2_wycpu")
+prompt_message = "Pick Up [E]"
+
+[node name="rustybucket" parent="." instance=ExtResource("1_v4mr4")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.263986, 0)
+shape = SubResource("CylinderShape3D_nlr8m")
+
+[node name="rustybucket_filled" parent="." instance=ExtResource("3_jrrfg")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+visible = false
+
+[node name="fill_noise" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_irnn5")
+volume_db = -1.475

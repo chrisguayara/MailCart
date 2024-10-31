@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://bh2mv4aqnc7ar"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_t16rt"]
+[ext_resource type="Script" path="res://main_character.gd" id="1_xliqv"]
+[ext_resource type="PackedScene" uid="uid://itqmqb5jgub2" path="res://Interact/interact_ray.tscn" id="2_m6ikj"]
+[ext_resource type="Texture2D" uid="uid://71lnfr1xcapp" path="res://Textures/crosshair.png" id="4_vckax"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_be73j"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ggny"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_a2jnx"]
+
+[node name="main_character" type="CharacterBody3D"]
+collision_mask = 22
+slide_on_ceiling = false
+script = ExtResource("1_t16rt")
+
+[node name="CharacterBody" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_be73j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_6ggny")
+
+[node name="Head" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49662, 0)
+mesh = SubResource("SphereMesh_a2jnx")
+
+[node name="Camera" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.010956, -0.470104)
+
+[node name="InteractRay" parent="Head/Camera" instance=ExtResource("2_m6ikj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.166687, 0.470104)
+collision_mask = 9
+hit_back_faces = false
+collide_with_areas = true
+
+[node name="character_mover" type="Node3D" parent="."]
+script = ExtResource("1_xliqv")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CrossHair" type="TextureRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vckax")
+stretch_mode = 1
+
+[node name="HandMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.250577, 0.633802, -0.962151)
